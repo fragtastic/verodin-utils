@@ -26,8 +26,7 @@ def get_jobs(ip, user, password):
 
 def get_job_results(ip, user, password, job_id):
     url = f'https://{ip}/jobs/{job_id}.json'
-    parameters =
-    results = json.loads(get_request(url, user, password, parameters).text)
+    results = json.loads(get_request(url, user, password).text)
     return results
 
 def action_default(args):
@@ -42,7 +41,7 @@ def action_all_jobs(args):
             logging.debug(json.dumps(jobs, indent=1))
             jf.write(json.dumps(jobs, indent=1))
     else:
-        logging.info(f"Job #{job['id']} already exists. Skipping.")
+        logging.info('jobs.json already exists. Skipping.')
 
 def action_all_job_results(args):
     jobs = get_jobs(args.target, args.username, args.password)
